@@ -18,7 +18,7 @@ def load_config(path):
 def collect_files(dataset_path, directories, lang=None):
     dataset_root = CATALOGUE_DIR / dataset_path
     files = []
-
+    
     for d in directories:
         if "{lang}" in d and lang:
             d = d.replace("{lang}", lang)
@@ -29,7 +29,7 @@ def collect_files(dataset_path, directories, lang=None):
 
         for root, _, filenames in os.walk(search_dir):
             for fname in filenames:
-                if fname.endswith(".jsonl.zst"):
+                if fname.endswith(".jsonl.zst") or fname.endswith(".jsonl.zstd"):
                     full_path = Path(root) / fname
                     rel_path = full_path.relative_to(CATALOGUE_DIR)
                     files.append(str(rel_path))
