@@ -1,0 +1,34 @@
+Bootstrap: docker
+From: python:3.10-slim
+
+%files
+    multilingual-PII-tool /opt/multilingual-PII-tool
+
+%environment
+    export VIRTUAL_ENV=/opt/venv/bigscience
+    export PATH="$VIRTUAL_ENV/bin:$PATH"
+
+%post
+    apt-get update && apt-get install -y --no-install-recommends \
+        build-essential \
+        python3-dev \
+        python3-venv \
+        python3-pip \
+        parallel
+
+    python3 -m venv /opt/venv/bigscience
+    export PATH="/opt/venv/bigscience/bin:$PATH"
+
+    cd /opt/multilingual-PII-tool
+
+    pip3 install --no-cache-dir --upgrade pip
+    pip3 install -r requirements.txt
+    pip3 install pytest orjson loguru
+
+    make pkg
+    make install
+
+    rm -rf ~/.cache/pip
+
+%runscript
+    exec "$@"

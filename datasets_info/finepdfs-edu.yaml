@@ -1,0 +1,5 @@
+dataset_name: finepdfs-edu
+dataset_path: finepdfs
+chunk_size: 100
+directories:
+  - "1.0.0/edu/{lang}/train"
