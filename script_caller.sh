@@ -1,7 +1,9 @@
 #!/bin/bash
 
 
-DATASET="nemotron"
+DATASET=$1
+JSONL_ROOT_DIR=$2
+
 LANGS=(
   # "bul_Cyrl"
   # "cat_Latn"
@@ -38,5 +40,5 @@ LANGS=(
 )
 
 for LANG in "${LANGS[@]}"; do
-  python3 utils/status.py --shards-jsonl "generated_jobs/$DATASET/${DATASET}_${LANG}.jsonl"
+  python3 utils/status.py --shards-jsonl "$JSONL_ROOT_DIR/$DATASET/${DATASET}_${LANG}.jsonl"
 done
