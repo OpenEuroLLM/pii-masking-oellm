@@ -14,9 +14,12 @@ ID_FIELD=$5
 PII_MODE=$6
 CATALOGUE_DIR=$7
 
-# Set thread amount to half of available CPUs to distribute
-# to the pii pipeline and to the zstdmt ouputting
-THREADS=$((SLURM_CPUS_PER_TASK / 2))
+# Set thread amount from available CPUs to distribute
+# to the pii pipeline and to the zstdmt ouputting.
+# Main PII processing will use 2/3 of available CPUS,
+# while output compression the remaining ones minus an overhead.
+PROCESS_THREADS=$((SLURM_CPUS_PER_TASK * 3 / 4))
+COMPRESS_THREADS=$((SLURM_CPUS_PER_TASK - PROCESS_THREADS - 2))
 
 # Extract specific line from jsonl with shards to get
 # the information left for the job
