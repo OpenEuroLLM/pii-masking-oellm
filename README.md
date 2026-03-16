@@ -100,8 +100,32 @@ where:
 - `dataset_name`: dataset name + language
 - `path`: relative path of the shard, used for later ingestion and to keep the same folder structure in the output 
 
-After the required setup is completed, the tool can be invoked and jobs sent to the system:
+After completing required setup, the tool can be invoked to submit jobs to the system. Example job submission:
 
    ```bash
-   
+   python3 submitter.py \
+      --shards-jsonl generated_jobs/nemotron/nemotron_eng_Latn.jsonl \
+      --partition small \
+      --job-limit 1 \
+      --time 4:00:00 \
+      --mem 224G \
+      --cpus 128 \
+      --lang en \
+      --id-field warc_record_id \
+      --pii-mode extract
    ```
+
+Allowed parameters for job submission Python script:
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|---------|---------|-------------|
+| `--shards-jsonl` | Path | Yes | — | JSONL file containing job information for the created shards. |
+| `--partition` | str | No | `small` | Lumi partition to be used. |
+| `--job-limit` | int | No | `1` | Limit on how many jobs will be submitted together. |
+| `--time` | str | No | `4:00:00` | Time limit per job submitted. |
+| `--mem` | str | No | `224G` | Amount of memory to use. |
+| `--cpus` | int | No | `128` | CPUs per task to use. |
+| `--lang` | str | Yes | — | ISO 639-1 2-character language code, e.g., `en`, `es`. |
+| `--id-field` | str | Yes | — | Name of ID field for the dataset being processed. |
+| `--metadata-field` | str | No | `""` | Specific metadata field where document IDs are, if present. E.g., DCLM uses `metadata`. |
+| `--pii-mode` | str | No | `extract` | Tool’s mode of PII processing. Allowed modes: `full`, `extract`, `replace`. |
