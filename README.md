@@ -141,6 +141,8 @@ After completing the required setup, the tool can be invoked to submit jobs to t
       --pii-mode extract
    ```
 
+After submitting jobs, the `.jsonl` file used for tracking will be updated with the generated job id's and a placeholder "`PENDING`" job status.
+
 Allowed parameters for job submission Python script:
 
 | Parameter | Type | Required | Default | Description |
@@ -155,3 +157,13 @@ Allowed parameters for job submission Python script:
 | `--id-field` | str | Yes | — | Name of ID field for the dataset being processed. |
 | `--metadata-field` | str | No | `""` | Specific metadata field where document IDs are, if present. E.g., DCLM uses `metadata`. |
 | `--pii-mode` | str | No | `extract` | Tool’s mode of PII processing. Allowed modes: `full`, `extract`, `replace`. |
+
+### Job status updating
+
+To monitor which jobs may have failed, are still running, or have not yet been submitted, you can use the `script_caller.sh` script.
+
+   ```bash
+   bash script_caller.sh nemotron generated_jobs/
+   ```
+
+Before running it, the script must be manually updated to include the languages that should be processed.
