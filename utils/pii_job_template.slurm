@@ -49,11 +49,11 @@ while IFS= read -r RELATIVE_INPUT_FILE_PATH; do
 	| srun /usr/bin/time -v singularity exec pii_oellm.sif \
 	parallel --pipe -k \
 		--halt soon,fail=1 \
-		-j "$THREADS" --block 50M \
+		-j "$PROCESS_THREADS" --block 50M \
 	python3 ./pii_tool.py \
 		--lang "$LANG"  \
 		--metadata-field "$METADATA_FIELD"  \
 		--id-field "$ID_FIELD"  \
 		--pii-mode "$PII_MODE"  \
-	| zstdmt -T"$THREADS" -10 > "$OUTPUT_FILE_JSONL"
+	| zstdmt -T"$COMPRESS_THREADS" -10 > "$OUTPUT_FILE_JSONL"
 done < "$SPLIT_FILE"
