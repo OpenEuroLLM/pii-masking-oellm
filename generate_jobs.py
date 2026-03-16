@@ -53,6 +53,7 @@ def generate_jobs(datasets_file, input_dir, output_dir):
                         job = {
                             "job_id": None,
                             "status": "NOT_STARTED",
+                            "name": f"{dataset_path}/{file_path}".replace("/", "_")[:-4],
                             "dataset_name": f"{dataset_name}/{dataset_lang}",
                             "path": str(Path(files_dir, file_path)),
                         }
