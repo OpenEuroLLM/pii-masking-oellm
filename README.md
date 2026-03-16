@@ -54,6 +54,8 @@ Step-by-step instructions to get the project running on Lumi HPC:
 
 ## Usage
 
+### Preparation
+
 First step before starting to use the tool is to prepare all the necessary folders and environment variables.
 
 1. Scratch user folder and PII masking output folder:
@@ -81,24 +83,45 @@ First step before starting to use the tool is to prepare all the necessary folde
 
     The `LANGS` list currently available in the file is the complete list of languages encompassed for PII masking, so there is no need to edit it unless more are added or removed later on.
 
+### Job creation
+
 Next step before submitting any jobs is the preparation of `.jsonl` files that keep track, for each dataset, what shards still need to be submitted for processing. These files keep track of jobs completed, failed, submitted, ...
 
+Example for `nemotron`:
+
    ```bash
-   # Create job tracking .jsonl for e.g. 'nemotron'
-   python3 create_jobs.py datasets_info/nemotron.yaml --output jobs/
+   # First, create a list of shards per job that will be submitted
+   # The amount of shards is declared in the datasets_info .jsonl files for each dataset
+   python3 generate_splits.py --yaml-config datasets_info/nemotron.yaml --output-dir generated_splits
+
+   # Create job tracking .jsonl
+   python3 generate_jobs.py --yaml-config datasets_info/nemotron.yaml --input-dir generated_splits/ --output-dir generated_jobs/
    ```
 
-This step creates `.jsonl` files for as many languages are supported in the dataset. The files contain lines like these:
+This step creates `.jsonl` files in `generated_jobs/` for as many languages that are supported by the dataset. The files contain lines like these:
 
    ```json
-   {"status": null, "job_id": null, "dataset_name": "nemotron-cc_eng_Latn", "path": "nemotron-cc/1.0/high/actual/CC-MAIN-2018-13-part-00011.jsonl.zstd"}
+   {"job_id": null, "status": "NOT_STARTED", "dataset_name": "nemotron/eng_Latn", "path": "generated_splits/nemotron/1.0/high/actual/1.0_high_actual_0.txt"}
    ```
 
 where:
 - `status`: job status in slurm
 - `job_id`: job id in slurm
 - `dataset_name`: dataset name + language
-- `path`: relative path of the shard, used for later ingestion and to keep the same folder structure in the output 
+- `path`: path to a text file which contain a set amount of shard paths for the dataset
+
+An example of one of these text files created for e.g. `nemotron` and 4 shards per job:
+
+   ```
+   /nemotron-cc/1.0/high/actual/CC-MAIN-2013-20-part-00000.jsonl.zstd
+   /nemotron-cc/1.0/high/actual/CC-MAIN-2013-20-part-00001.jsonl.zstd
+   /nemotron-cc/1.0/high/actual/CC-MAIN-2013-20-part-00002.jsonl.zstd
+   /nemotron-cc/1.0/high/actual/CC-MAIN-2013-20-part-00003.jsonl.zstd
+   ```
+
+where each line is the relative path of the shard, used for later ingestion and to keep the same folder structure in the output.
+
+### Job submission
 
 After completing the required setup, the tool can be invoked to submit jobs to the system. Example job submission:
 
