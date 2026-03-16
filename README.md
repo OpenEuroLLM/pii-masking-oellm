@@ -101,14 +101,17 @@ Example for `nemotron`:
 This step creates `.jsonl` files in `generated_jobs/` for as many languages that are supported by the dataset. The files contain lines like these:
 
    ```json
-   {"job_id": null, "status": "NOT_STARTED", "dataset_name": "nemotron/eng_Latn", "path": "generated_splits/nemotron/1.0/high/actual/1.0_high_actual_0.txt"}
+   {"job_id": null,
+   "status": "NOT_STARTED", 
+   "dataset_name": "nemotron/eng_Latn", 
+   "path": "generated_splits/nemotron/1.0/high/actual/1.0_high_actual_0.txt"}
    ```
 
 where:
-- `status`: job status in slurm
 - `job_id`: job id in slurm
+- `status`: job status in slurm
 - `dataset_name`: dataset name + language
-- `path`: path to a text file which contain a set amount of shard paths for the dataset
+- `path`: path to a text file which contains a set amount of shard paths for the dataset
 
 An example of one of these text files created for e.g. `nemotron` and 4 shards per job:
 
