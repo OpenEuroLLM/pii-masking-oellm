@@ -54,9 +54,6 @@ def main():
                             'full', 'extract', 'replace'")
     args = parser.parse_args()
     
-    Path("logs", "pii_extraction").mkdir(exist_ok=True, parents=True)
-    logger.add(f"logs/pii_extraction/extraction_{args.shards_jsonl}_{datetime.datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}.log")
-    
     # Prepare sbatch array indices for as many jobs as are allowed 
     # or as many jobs as are still available.
     shards_dict = pl.read_ndjson(args.shards_jsonl).to_dicts()
