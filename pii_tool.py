@@ -42,10 +42,6 @@ def main():
     # Aux metadata field handling
     args.metadata_field = "" if args.metadata_field == "no-meta" else args.metadata_field
 
-    # Create logs folder if it doesn't exist already
-    Path("logs").mkdir(exist_ok=True, parents=True)
-    logger.add(f"logs/pii_{args.pii_mode}_{datetime.datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}.log")
-
     # All tasks used for this PII iteration
     tasklist = (PiiEnum.CREDIT_CARD,
                 PiiEnum.GOV_ID,
