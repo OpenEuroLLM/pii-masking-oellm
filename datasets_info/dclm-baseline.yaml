@@ -1,16 +1,16 @@
 
-dataset_name: dclm-baseline
-dataset_path: dclm
-lang: eng_Latn
-shard_count: 10
-directories:
-  - "1.0/baseline/global-shard_01_of_10"
-  - "1.0/baseline/global-shard_02_of_10"
-  - "1.0/baseline/global-shard_03_of_10"
-  - "1.0/baseline/global-shard_04_of_10"
-  - "1.0/baseline/global-shard_05_of_10"
-  - "1.0/baseline/global-shard_06_of_10"
-  - "1.0/baseline/global-shard_07_of_10"
-  - "1.0/baseline/global-shard_08_of_10"
-  - "1.0/baseline/global-shard_09_of_10"
-  - "1.0/baseline/global-shard_10_of_10"
+dclm-baseline:
+  dataset_path: dclm
+  lang: eng_Latn
+  shard_count: 10
+  directories:
+    - "1.0/baseline/global-shard_01_of_10"
+    - "1.0/baseline/global-shard_02_of_10"
+    - "1.0/baseline/global-shard_03_of_10"
+    - "1.0/baseline/global-shard_04_of_10"
+    - "1.0/baseline/global-shard_05_of_10"
+    - "1.0/baseline/global-shard_06_of_10"
+    - "1.0/baseline/global-shard_07_of_10"
+    - "1.0/baseline/global-shard_08_of_10"
+    - "1.0/baseline/global-shard_09_of_10"
+    - "1.0/baseline/global-shard_10_of_10"

@@ -1,5 +1,5 @@
-dataset_name: hplt
-dataset_path: hplt
-shard_count: 10
-directories:
-  - "3.0/sorted/{lang}"
+hplt:
+  dataset_path: hplt
+  shard_count: 10
+  directories:
+    - "3.0/sorted/{lang}"

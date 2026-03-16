@@ -1,5 +1,5 @@
-dataset_name: finepdfs
-dataset_path: finepdfs
-shard_count: 10
-directories:
-  - "1.0.0/data/{lang}/train"
+finepdfs:
+  dataset_path: finepdfs
+  shard_count: 10
+  directories:
+    - "1.0.0/data/{lang}/train"
