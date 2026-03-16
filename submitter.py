@@ -108,12 +108,13 @@ def main():
     logger.info(f"_____________")
     logger.info(f"- Submitting jobs to the system...")
 
-    # Set some required slurm variables
+    # Set some required slurm/bash variables
     array_idxs = ",".join(jobs_to_submit)
     job_name = f"{dataset_name}_%A_%a"
     output_logs = f"{logs_path}/job_%A_%a.out"
     error_logs = f"{logs_path}/job_%A_%a.err"
     slurm_script_path = "utils/pii_job_template.slurm"
+    metadata_field = args.metadata_field if args.metadata_field else "no-meta"
     
     # Create sbatch command with the specified slurm parameters,
     # and the specified PII tool parameters
@@ -130,7 +131,7 @@ def main():
             args.shards_jsonl,
             pii_extracted_dir,
             args.lang,
-            args.metadata_field,
+            metadata_field,
             args.id_field,
             args.pii_mode,
             CATALOGUE_DIR
