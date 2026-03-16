@@ -2,3 +2,4 @@ pyyaml
 loguru
 orjson
 polars
+iso639-lang
