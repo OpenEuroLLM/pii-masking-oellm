@@ -100,7 +100,7 @@ where:
 - `dataset_name`: dataset name + language
 - `path`: relative path of the shard, used for later ingestion and to keep the same folder structure in the output 
 
-After completing required setup, the tool can be invoked to submit jobs to the system. Example job submission:
+After completing the required setup, the tool can be invoked to submit jobs to the system. Example job submission:
 
    ```bash
    python3 submitter.py \
