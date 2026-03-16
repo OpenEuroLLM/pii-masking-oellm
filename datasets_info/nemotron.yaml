@@ -1,8 +1,8 @@
-dataset_name: nemotron
-dataset_path: nemotron-cc
-lang: eng_Latn
-chunk_size: 10
-directories:
-  - "1.0/high/actual"
-  - "1.0/medium/actual"
-  - "1.0/medium-high/actual"
+nemotron:
+  dataset_path: nemotron-cc
+  lang: eng_Latn
+  shard_count: 10
+  directories:
+    - "1.0/high/actual"
+    - "1.0/medium/actual"
+    - "1.0/medium-high/actual"
