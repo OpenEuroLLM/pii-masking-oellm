@@ -6,7 +6,7 @@ from pathlib import Path
 import argparse
 from loguru import logger
 
-CODE_ELEGIBILITY = ["PENDING", "NOT_STARTED", "FAILED", "PREEMPTED", "SUSPENDED", None, "CANCELLED+", "TIMEOUT"]
+CODE_ELEGIBILITY = ["RUNNING", "PENDING", "NOT_STARTED", "FAILED", "PREEMPTED", "SUSPENDED", None, "CANCELLED+", "TIMEOUT"]
 
 def get_job_status(job_id: str) -> str:
     #logger.info(f"      Getting job status for job: {job_id}")
