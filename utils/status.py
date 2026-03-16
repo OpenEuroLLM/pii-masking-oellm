@@ -6,9 +6,10 @@ from pathlib import Path
 import argparse
 from loguru import logger
 
+CODE_ELEGIBILITY = ["PENDING", "NOT_STARTED", "FAILED", "PREEMPTED", "SUSPENDED", None, "CANCELLED+", "TIMEOUT"]
 
 def get_job_status(job_id: str) -> str:
-    logger.info(f"      Getting job status for job: {job_id}")
+    #logger.info(f"      Getting job status for job: {job_id}")
 
     # Get job information from sacct in JSON format
     try:
@@ -35,7 +36,7 @@ def get_job_status(job_id: str) -> str:
         logger.error(f"Unexpected error when using parsed information for job {job_id}: {e}")
         raise RuntimeError(f"Unexpected error when using parsed information for job: {e}") from e
 
-    logger.info(f"      Job status: {status}")
+    #logger.info(f"      Job status: {status}")
     return status
 
 def get_job_status_json(job_id: str) -> str:
@@ -82,7 +83,7 @@ def update_all_job_status(shards_jsonl: Path):
     # and update shard group status when relevant
     results = []
     for i, shard_group in enumerate(shards_dict):
-        logger.info(f"{i} - Checking job: {shard_group['name']}")
+        #logger.info(f"{i} - Checking job: {shard_group['name']}")
         if "job_id" in shard_group:
             shards_id = shard_group["job_id"]
             shards_status = shard_group["status"]
@@ -93,9 +94,12 @@ def update_all_job_status(shards_jsonl: Path):
 
                 if job_status == "SAME_STATUS":
                     job_status = shard_group["status"]
+                
+                if job_status in CODE_ELEGIBILITY:
+                    logger.info(f" - PII job <{shard_group['name']}> has status <{job_status}>!")
 
                 if shards_status != job_status:
-                    logger.info(f"      <PII> job status changed from <{shards_status}> to <{job_status}>")
+                    logger.info(f" - PII job <{shard_group['name']}> status changed from <{shards_status}> to <{job_status}>")
                     shard_group["status"] = job_status
                 
                 results.append(job_status)
