@@ -19,7 +19,7 @@ Step-by-step instructions to get the project running on Lumi HPC:
 
    # Create a virtual environment
    python3 -m venv venv
-   source venv/activate/bin
+   source venv/bin/activate
 
    # Install the local requirements
    cd pii-masking-oellm
@@ -51,6 +51,17 @@ Step-by-step instructions to get the project running on Lumi HPC:
    ```
 
    The built Singularity container needs to be copied inside the root path of the repository from step 1. E.g. `/users/YOUR_USER/pii/pii-masking-oellm/pii_oellm.sif`
+
+   To build on Lumi:
+
+   ```bash
+   # It is possible to build container on Lumi using PRoot and it will NOT require 
+   # root access
+   module load CrayEnv
+   module load PRoot
+
+   singularity build pii_oellm.sif pii_oellm.def
+   ```
 
 ## Usage
 
